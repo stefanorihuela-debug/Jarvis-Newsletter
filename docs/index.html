@@ -3,201 +3,490 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JARVIS Newsletter</title>
+<title>JARVIS — Periódico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:        #0d0d0d;
+    --bg2:       #141414;
+    --bg3:       #1c1c1c;
+    --border:    #2a2a2a;
+    --border2:   #333;
+    --text:      #e8e0d4;
+    --text2:     #b0a898;
+    --text3:     #6a6258;
+    --ft:        #e05252;
+    --lp:        #d4a84b;
+    --ia:        #4a9eba;
+  }
+
   body {
-    background: #0a0a0a;
-    color: #e0e0e0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Source Serif 4', Georgia, serif;
     font-size: 15px;
-    line-height: 1.65;
+    line-height: 1.7;
     min-height: 100vh;
-    padding: 0 0 60px;
   }
-  header {
-    text-align: center;
-    padding: 40px 16px 24px;
-    border-bottom: 1px solid #1a1a1a;
+
+  /* ── MASTHEAD ── */
+  .masthead {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
   }
-  header h1 {
-    font-size: 2.6rem;
-    letter-spacing: 0.22em;
-    color: #00d4ff;
-    text-transform: uppercase;
-    font-weight: 900;
-  }
-  .last-updated { font-size: 0.76rem; color: #3a3a3a; margin-top: 8px; }
-  .tabs {
+  .masthead-top {
     display: flex;
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0 16px;
-    border-bottom: 1px solid #1a1a1a;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 28px;
+    border-bottom: 1px solid var(--border);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.68rem;
+    color: var(--text3);
+    letter-spacing: 0.05em;
   }
-  .tab {
-    padding: 16px 28px;
-    cursor: pointer;
-    font-size: 0.78rem;
-    font-weight: 800;
-    letter-spacing: 0.14em;
+  .masthead-title {
+    text-align: center;
+    padding: 20px 28px 16px;
+  }
+  .masthead-name {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 4.2rem;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    color: var(--text);
     text-transform: uppercase;
+    line-height: 1;
+  }
+  .masthead-tagline {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--text3);
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+  .masthead-rule {
+    border: none;
+    border-top: 1px solid var(--border2);
+    margin: 0;
+  }
+  .masthead-rule2 {
+    border: none;
+    border-top: 3px double var(--border2);
+    margin: 0;
+  }
+
+  /* ── NAV TABS ── */
+  .section-nav {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  }
+  .stab {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 14px 32px;
+    cursor: pointer;
     border-bottom: 3px solid transparent;
-    color: #3a3a3a;
-    transition: color 0.2s;
-    margin-bottom: -1px;
+    color: var(--text3);
+    transition: all 0.18s;
+    white-space: nowrap;
     user-select: none;
   }
-  .tab:hover { color: #777; }
-  .tab.ft-active { color: #cc0000; border-bottom-color: #cc0000; }
-  .tab.lp-active { color: #f0a500; border-bottom-color: #f0a500; }
-  .tab.ia-active { color: #00d4ff; border-bottom-color: #00d4ff; }
-  .panel { display: none; max-width: 900px; margin: 0 auto; padding: 32px 16px; }
+  .stab:hover { color: var(--text2); }
+  .stab.ft-active { color: var(--ft); border-bottom-color: var(--ft); }
+  .stab.lp-active { color: var(--lp); border-bottom-color: var(--lp); }
+  .stab.ia-active { color: var(--ia); border-bottom-color: var(--ia); }
+
+  /* ── PANELS ── */
+  .panel { display: none; max-width: 980px; margin: 0 auto; padding: 36px 20px 60px; }
   .panel.active { display: block; }
+
+  /* ── CARDS ── */
   .card {
-    background: #111;
-    border-radius: 12px;
-    padding: 28px;
-    margin-bottom: 24px;
-    border: 1px solid #1a1a1a;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    margin-bottom: 28px;
+    overflow: hidden;
   }
-  .card-header { padding-left: 16px; margin-bottom: 20px; }
-  .card-title  { font-size: 1.1rem; font-weight: 700; color: #f0f0f0; line-height: 1.4; }
-  .card-date   { display: block; font-size: 0.7rem; color: #3a3a3a; margin-top: 5px; }
+  .card-header {
+    padding: 20px 28px 16px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg3);
+  }
+  .card-badge {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 2px;
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+  .card-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.55rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.25;
+  }
+  .card-date {
+    display: block;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.68rem;
+    color: var(--text3);
+    margin-top: 6px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .card-body { padding: 24px 28px 28px; }
+
+  /* ── TYPOGRAPHY ── */
   .card-body .nh1 {
-    font-size: 0.82rem; font-weight: 800; text-transform: uppercase;
-    letter-spacing: 0.1em; color: #888; margin: 28px 0 10px;
-    padding-bottom: 6px; border-bottom: 1px solid #1e1e1e;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 28px 0 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border2);
+    letter-spacing: 0.02em;
   }
   .card-body .nh1:first-child { margin-top: 0; }
-  .card-body .nh2 { font-size: 0.88rem; font-weight: 700; color: #c0c0c0; margin: 20px 0 8px; }
-  .card-body .nh3 { font-size: 0.82rem; font-weight: 600; color: #999; margin: 16px 0 6px; }
-  .card-body .np  { font-size: 0.86rem; color: #999; padding: 4px 0; line-height: 1.6; }
-  .card-body .nlist { list-style: none; padding: 0; margin: 6px 0; }
-  .card-body .nlist li {
-    font-size: 0.86rem; color: #999;
-    padding: 5px 0 5px 16px;
-    border-bottom: 1px solid #181818;
-    position: relative; line-height: 1.5;
+
+  .card-body .nh2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    font-style: italic;
+    color: var(--text2);
+    margin: 22px 0 8px;
   }
-  .card-body .nlist li:last-child { border-bottom: none; }
-  #panel-ft .card-body .nlist li::before { content: '▸'; color: #cc0000; position: absolute; left: 0; font-size: 0.7rem; top: 7px; }
-  #panel-lp .card-body .nlist li::before { content: '▸'; color: #f0a500; position: absolute; left: 0; font-size: 0.7rem; top: 7px; }
-  #panel-ia .card-body .nlist li::before { content: '▸'; color: #00d4ff; position: absolute; left: 0; font-size: 0.7rem; top: 7px; }
+
+  .card-body .nh3 {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin: 18px 0 6px;
+  }
+
+  .card-body .np {
+    font-size: 0.9rem;
+    color: var(--text2);
+    margin: 5px 0;
+    line-height: 1.75;
+  }
+
   .card-body .nquote {
-    background: #161616; border-left: 3px solid #2a2a2a;
-    padding: 10px 14px; margin: 10px 0;
-    font-size: 0.84rem; color: #888;
-    border-radius: 0 6px 6px 0; line-height: 1.6;
+    border-left: 3px solid var(--border2);
+    padding: 10px 18px;
+    margin: 14px 0;
+    font-style: italic;
+    font-size: 0.9rem;
+    color: var(--text2);
+    background: var(--bg3);
+    line-height: 1.7;
+    border-radius: 0 3px 3px 0;
   }
-  .card-body .ncallout {
-    background: #161616; border: 1px solid #222; border-radius: 8px;
-    padding: 10px 14px; margin: 10px 0;
-    font-size: 0.84rem; color: #999;
-    display: flex; gap: 8px; align-items: flex-start;
+
+  .ndivider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 20px 0;
   }
-  .callout-icon { font-size: 1rem; flex-shrink: 0; margin-top: 2px; }
-  .ndivider { border: none; border-top: 1px solid #1e1e1e; margin: 18px 0; }
+
+  /* ── LISTS ── */
+  .nlist { list-style: none; padding: 0; margin: 8px 0; }
+  .nlist li {
+    font-size: 0.88rem;
+    color: var(--text2);
+    padding: 7px 0 7px 18px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    line-height: 1.6;
+  }
+  .nlist li:last-child { border-bottom: none; }
+  .nlist-ft li::before { content: '—'; color: var(--ft); position: absolute; left: 0; font-weight: 700; }
+  .nlist-lp li::before { content: '—'; color: var(--lp); position: absolute; left: 0; font-weight: 700; }
+  .nlist-ia li::before { content: '—'; color: var(--ia); position: absolute; left: 0; font-weight: 700; }
+
+  /* ── TABLES ── */
   .ntable-wrap {
-    overflow-x: auto; margin: 12px 0;
-    border-radius: 8px; border: 1px solid #1e1e1e;
+    overflow-x: auto;
+    margin: 14px 0;
+    border: 1px solid var(--border);
+    border-radius: 3px;
   }
-  .ntable { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+  .ntable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+    font-family: 'Source Sans 3', sans-serif;
+  }
   .ntable th {
-    background: #161616; color: #888; font-weight: 700;
-    font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em;
-    padding: 9px 12px; text-align: left; border-bottom: 1px solid #222;
+    background: var(--bg3);
+    color: var(--text3);
+    font-weight: 700;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--border2);
+    white-space: nowrap;
   }
   .ntable td {
-    color: #aaa; padding: 8px 12px;
-    border-bottom: 1px solid #181818; vertical-align: top;
+    color: var(--text2);
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    line-height: 1.5;
   }
   .ntable tr:last-child td { border-bottom: none; }
-  .ntable tr:hover td { background: #151515; }
-  strong { color: #d0d0d0; font-weight: 600; }
-  code { background: #1a1a1a; padding: 1px 5px; border-radius: 3px; font-size: 0.82em; color: #aaa; }
-  .empty { font-size: 0.82rem; color: #333; font-style: italic; }
-  footer { text-align: center; margin-top: 48px; font-size: 0.68rem; color: #222; letter-spacing: 0.05em; }
-  @media (max-width: 600px) {
-    header h1 { font-size: 1.8rem; }
-    .tab { padding: 12px 14px; font-size: 0.68rem; letter-spacing: 0.06em; }
-    .card { padding: 18px; }
+  .ntable tr:hover td { background: var(--bg3); }
+
+  strong { color: var(--text); font-weight: 700; }
+  em { font-style: italic; color: var(--text2); }
+  a { color: var(--ia); text-decoration: none; border-bottom: 1px solid transparent; }
+  a:hover { border-bottom-color: var(--ia); }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 20px 16px;
+    border-top: 1px solid var(--border);
+    background: var(--bg2);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.65rem;
+    color: var(--text3);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 640px) {
+    .masthead-name { font-size: 2.6rem; }
+    .masthead-top { display: none; }
+    .card-title { font-size: 1.2rem; }
+    .card-body { padding: 16px 18px; }
+    .card-header { padding: 14px 18px 12px; }
+    .stab { padding: 12px 16px; font-size: 0.62rem; letter-spacing: 0.14em; }
   }
 </style>
 </head>
 <body>
 
-<header>
-  <h1>JARVIS</h1>
-  <p class="last-updated">Actualizado: 24 mai 2026 à 12:01 (Paris)</p>
+<header class="masthead">
+  <div class="masthead-top">
+    <span>Domingo, 24 de mayo de 2026</span>
+    <span>Periódico financiero &amp; tecnológico · Edición digital</span>
+    <span>Generado por JARVIS · Paris</span>
+  </div>
+  <hr class="masthead-rule">
+  <div class="masthead-title">
+    <div class="masthead-name">JARVIS</div>
+    <p class="masthead-tagline">Periódico financiero &amp; tecnológico · Edición digital</p>
+  </div>
+  <hr class="masthead-rule2">
 </header>
 
-<div class="tabs">
-  <div class="tab ft-active" id="tab-ft" onclick="switchTab('ft')">📊 Financial Times</div>
-  <div class="tab"           id="tab-lp" onclick="switchTab('lp')">📌 Cuaderno LP</div>
-  <div class="tab"           id="tab-ia" onclick="switchTab('ia')">🤖 IA Weekly</div>
-</div>
+<nav class="section-nav">
+  <div class="stab ft-active" id="tab-ft" onclick="switchTab('ft')">📊 Financial Times</div>
+  <div class="stab" id="tab-lp" onclick="switchTab('lp')">📌 Cuaderno LP</div>
+  <div class="stab" id="tab-ia" onclick="switchTab('ia')">🤖 IA Weekly</div>
+</nav>
 
-<div class="panel active" id="panel-ft">
-  
+<main>
+  <div class="panel active" id="panel-ft">
   <div class="card">
-    <div class="card-header" style="border-left:4px solid #cc0000">
-      <h2 class="card-title">📊 Financial Times — 18 de abril de 2026</h2>
-      <span class="card-date">2026-04-18</span>
+    <div class="card-header" style="border-top:3px solid #e05252">
+      <span class="card-badge" style="background:#e0525220;color:#e05252;border:1px solid #e0525240">HOY</span>
+      <h2 class="card-title">Financial Times — 20 de mayo de 2026</h2>
+      <span class="card-date">Miércoles, 20 de mayo de 2026 · Datos reales</span>
     </div>
-    <div class="card-body">
-      <p class="np"><em>Periódico financiero automatizado · Viernes, 18 de abril de 2026 · 09:15 ET</em></p><hr class="ndivider"><h3 class="nh2">🌍 ÍNDICES GLOBALES</h3><blockquote class="nquote">📡 Los mercados globales cotizan al alza impulsados por las expectativas de extensión del alto el fuego EE.UU.–Irán y la reapertura del Estrecho de Ormuz. Europa lidera con el <strong>Ibex 35 +3,94%</strong>. Único rezagado: el <strong>Nikkei 225 −1,75%</strong> por tensiones geopolíticas en Asia.</blockquote><div class="ntable-wrap"><table class="ntable"><tr><th>Índice</th><th>Valor</th><th>Día</th></tr><tr><td>🇺🇸 S&amp;P 500</td><td><strong>7.126</strong></td><td>🟢 <strong>+1,20%</strong></td></tr><tr><td>🇺🇸 Nasdaq</td><td><strong>24.468</strong></td><td>🟢 <strong>+1,52%</strong></td></tr><tr><td>🇺🇸 Dow Jones</td><td><strong>49.447</strong></td><td>🟢 <strong>+1,79%</strong></td></tr><tr><td>🇩🇪 DAX</td><td><strong>24.702</strong></td><td>🟢 <strong>+2,27%</strong></td></tr><tr><td>🇬🇧 FTSE 100</td><td><strong>10.668</strong></td><td>🟢 <strong>+0,73%</strong></td></tr><tr><td>🇯🇵 Nikkei 225</td><td><strong>58.476</strong></td><td>🔴 <strong>−1,75%</strong></td></tr><tr><td>🇪🇸 Ibex 35</td><td><strong>18.132</strong></td><td>🟢 <strong>+3,94%</strong></td></tr><tr><td>🇭🇰 Hang Seng</td><td><strong>25.893</strong></td><td>🟢 <strong>+3,09%</strong></td></tr><tr><td>🇪🇺 Euro Stoxx 50</td><td><strong>5.938</strong></td><td>🔴 <strong>−0,04%</strong></td></tr></table></div><hr class="ndivider"><h3 class="nh2">📊 PANEL MACRO</h3><blockquote class="nquote">🟠 <strong>VIX · Volatilidad del mercado</strong></blockquote><blockquote class="nquote">## 17,48</blockquote><blockquote class="nquote">🟡 <strong>Normal</strong> · −2,56% hoy</blockquote><blockquote class="nquote"><em>Zona 15–20 · Sin señales de estrés · El mercado descansa tras semanas de tensión geopolítica</em></blockquote><blockquote class="nquote">🔵 <strong>DXY · Índice del Dólar</strong></blockquote><blockquote class="nquote">## 98,23</blockquote><blockquote class="nquote">🟢 <strong>Dólar débil</strong> · −0,52% hoy</blockquote><blockquote class="nquote"><em>Por debajo de 100 · Favorece mercados emergentes y commodities</em></blockquote><blockquote class="nquote">🟣 <strong>Bono EEUU · Treasuries</strong></blockquote><blockquote class="nquote">## 10A: 4,26% · 2A: 3,71%</blockquote><blockquote class="nquote">+2 pb (10A) · −3 pb (2A) hoy</blockquote><blockquote class="nquote"><em>Diferencial 2A–10A: +55 pb → ✅ Curva normal · Sin señal de recesión</em></blockquote><blockquote class="nquote">🎯 <strong>Lectura macro del día</strong></blockquote><blockquote class="nquote">El VIX bajo 20, el dólar débil y la curva en zona normal forman un entorno <strong>técnicamente constructivo</strong> para la renta variable. El riesgo principal sigue siendo geopolítico (tregua Irán vence 22 abr).</blockquote><hr class="ndivider"><h3 class="nh2">⚡ SECTORES S&amp;P 500 — Rendimiento del día</h3><p class="np"><em>Barras proporcionales · máximo = 1,60% (XLK)</em></p><div class="ntable-wrap"><table class="ntable"><tr><th>Sector</th><th>ETF</th><th>Rendimiento</th></tr><tr><td>🏆 <strong>Tecnología</strong></td><td><code>XLK</code></td><td>🟢 ████████████████ <strong>+1,60%</strong></td></tr><tr><td>Consumo Discrecional</td><td><code>XLY</code></td><td>🟢 ████████████ +1,20%</td></tr><tr><td>Financieros</td><td><code>XLF</code></td><td>🟢 █████████ +0,90%</td></tr><tr><td>Industriales</td><td><code>XLI</code></td><td>🟢 ████████ +0,80%</td></tr><tr><td>Comunicaciones</td><td><code>XLC</code></td><td>🟢 ███████ +0,70%</td></tr><tr><td>Inmobiliario</td><td><code>XLRE</code></td><td>🟢 ███ +0,30%</td></tr><tr><td>Materiales</td><td><code>XLB</code></td><td>🟢 ██ +0,20%</td></tr><tr><td>Consumo Básico</td><td><code>XLP</code></td><td>🔴 ▒ −0,10%</td></tr><tr><td>Energía</td><td><code>XLE</code></td><td>🔴 ▒▒▒ −0,34%</td></tr><tr><td>Salud</td><td><code>XLV</code></td><td>🔴 ▒▒▒▒▒▒▒ −0,71%</td></tr><tr><td>📉 <strong>Servicios Públicos</strong></td><td><code>XLU</code></td><td>🔴 ▒▒▒▒▒▒▒▒ <strong>−0,80%</strong></td></tr></table></div><hr class="ndivider"><h3 class="nh2">📈 ACCIONES CLAVE</h3><div class="ntable-wrap"><table class="ntable"><tr><th>Ticker</th><th>Empresa</th><th>Precio</th><th>Cambio día</th></tr><tr><td><code>NVDA</code></td><td>Nvidia</td><td><strong>$200,50</strong></td><td>🟢 <strong>+2,50%</strong></td></tr><tr><td><code>AAPL</code></td><td>Apple</td><td><strong>$270,23</strong></td><td>🟢 <strong>+2,59%</strong></td></tr><tr><td><code>MSFT</code></td><td>Microsoft</td><td><strong>$422,79</strong></td><td>🟢 <strong>+0,60%</strong></td></tr><tr><td><code>TSLA</code></td><td>Tesla</td><td><strong>$400,62</strong></td><td>🟢 <strong>+3,01%</strong></td></tr><tr><td><code>AMZN</code></td><td>Amazon</td><td><strong>$250,56</strong></td><td>🟢 <strong>+0,34%</strong></td></tr><tr><td><code>GOOGL</code></td><td>Alphabet</td><td><strong>$195,40</strong></td><td>🟢 <strong>+1,50%</strong></td></tr><tr><td><code>META</code></td><td>Meta Platforms</td><td><strong>$622,00</strong></td><td>🟢 <strong>+1,80%</strong></td></tr><tr><td><code>JPM</code></td><td>JPMorgan Chase</td><td><strong>$274,50</strong></td><td>🟢 <strong>+1,10%</strong></td></tr><tr><td><code>AMD</code></td><td>Advanced Micro Devices</td><td>—</td><td>🟢 <strong>+7,80%</strong></td></tr></table></div><hr class="ndivider"><h3 class="nh2">🚀 MAYORES MOVIMIENTOS DEL DÍA</h3><h4 class="nh3">▲ TOP 5 SUBIDAS</h4><div class="ntable-wrap"><table class="ntable"><tr><th>#</th><th>Ticker</th><th>Empresa</th><th>Cambio</th></tr><tr><td>🥇</td><td><code>NVTS</code></td><td>Navitas Semiconductor</td><td>🟢 <strong>+20,57%</strong></td></tr><tr><td>🥈</td><td><code>AMD</code></td><td>Advanced Micro Devices</td><td>🟢 <strong>+7,80%</strong></td></tr><tr><td>🥉</td><td><code>TSLA</code></td><td>Tesla</td><td>🟢 <strong>+3,01%</strong></td></tr><tr><td>4</td><td><code>AAPL</code></td><td>Apple</td><td>🟢 <strong>+2,59%</strong></td></tr><tr><td>5</td><td><code>NVDA</code></td><td>Nvidia</td><td>🟢 <strong>+2,50%</strong></td></tr></table></div><h4 class="nh3">▼ TOP 5 BAJADAS</h4><div class="ntable-wrap"><table class="ntable"><tr><th>#</th><th>Ticker</th><th>Empresa</th><th>Cambio</th></tr><tr><td>1</td><td><code>BMI</code></td><td>Badger Meter</td><td>🔴 <strong>−16,44%</strong></td></tr><tr><td>2</td><td><code>PBF</code></td><td>PBF Energy</td><td>🔴 <strong>−14,10%</strong></td></tr><tr><td>3</td><td><code>PARR</code></td><td>Par Pacific Holdings</td><td>🔴 <strong>−14,03%</strong></td></tr><tr><td>4</td><td><code>NFLX</code></td><td>Netflix</td><td>🔴 <strong>−8,94%</strong></td></tr><tr><td>5</td><td><code>XLE</code></td><td>Sector Energía (ETF)</td><td>🔴 <strong>−0,34%</strong></td></tr></table></div><hr class="ndivider"><h3 class="nh2">🛢️ MATERIAS PRIMAS</h3><div class="ntable-wrap"><table class="ntable"><tr><th>Commodity</th><th>Precio</th><th>Cambio</th><th>Acciones afectadas</th></tr><tr><td>🥇 Oro</td><td><strong>$4.816</strong>/oz</td><td>🔴 −0,51%</td><td><code>NEM</code> <code>AEM</code> <code>GDX</code> ↓</td></tr><tr><td>🛢️ Petróleo WTI</td><td><strong>$91,80</strong>/bbl</td><td>🔴 −0,50%</td><td><code>XOM</code> <code>CVX</code> <code>SLB</code> ↓</td></tr><tr><td>🥈 Plata</td><td><strong>$79,18</strong>/oz</td><td>🔴 −0,40%</td><td><code>SLV</code> <code>PAAS</code> <code>WPM</code> ↓</td></tr><tr><td>⛽ Gas Natural</td><td><strong>$2,68</strong>/MMBtu</td><td>🟢 +1,20%</td><td><code>LNG</code> <code>EQT</code> <code>AR</code> ↑</td></tr></table></div><blockquote class="nquote">⚠️ <strong>Contexto — Petróleo bajo presión</strong> · La reapertura del Estrecho de Ormuz elimina la prima de riesgo geopolítico que había llevado al WTI cerca de $92. El crudo cede mientras el resto del mercado sube: divergencia clave a vigilar.</blockquote><hr class="ndivider"><h3 class="nh2">₿ CRIPTOMONEDAS</h3><div class="ntable-wrap"><table class="ntable"><tr><th>Cripto</th><th>Precio USD</th><th>Cambio</th></tr><tr><td>₿ <strong>Bitcoin</strong></td><td><strong>$76.200</strong></td><td>🔴 −1,20%</td></tr><tr><td>Ξ <strong>Ethereum</strong></td><td><strong>$3.820</strong></td><td>🟢 +0,80%</td></tr><tr><td><strong>BNB</strong></td><td><strong>$445</strong></td><td>🟢 +0,50%</td></tr><tr><td><strong>Solana</strong></td><td><strong>$86,40</strong></td><td>🔴 −0,90%</td></tr><tr><td><strong>XRP</strong></td><td><strong>$1,48</strong></td><td>🟢 +2,05%</td></tr></table></div><hr class="ndivider"><h3 class="nh2">📰 3 NOTICIAS CLAVE DEL DÍA</h3><blockquote class="nquote">🌐 <strong>EE.UU. e Irán negocian prolongar la tregua — el Estrecho de Ormuz reabre al tráfico</strong></blockquote><blockquote class="nquote"><em>Fuente: Yahoo Finance / CNBC</em></blockquote><blockquote class="nquote">EE.UU. e Irán mantienen conversaciones indirectas para extender el alto el fuego que <strong>vence el 22 de abril</strong>. Irán declaró el Estrecho de Ormuz completamente abierto al tráfico comercial, aliviando el riesgo de suministro energético global y catalizando el rally en bolsas europeas y norteamericanas.</blockquote><blockquote class="nquote">📌 <strong>Afecta:</strong> <code>XOM</code> <code>CVX</code> <code>SLB</code> (↓ energía) · mercados globales (↑) · <code>FDX</code> <code>UPS</code> (↑ transporte)</blockquote><blockquote class="nquote">📺 <strong>Netflix cae 9% — previsiones del Q2 decepcionan y Reed Hastings abandona la junta</strong></blockquote><blockquote class="nquote"><em>Fuente: Bloomberg</em></blockquote><blockquote class="nquote">Las acciones de Netflix se desplomaron en el mercado extendido tras publicar sus resultados del Q1 2026 con <strong>ingresos de $12.300M (+16,2%)</strong>, pero con guías del Q2 por debajo de las expectativas. Reed Hastings, cofundador de la compañía, anunció además su salida de la junta directiva en junio.</blockquote><blockquote class="nquote">📌 <strong>Afecta:</strong> <code>NFLX</code> (−9%) · <code>DIS</code> · <code>WBD</code></blockquote><blockquote class="nquote">🤖 <strong>BNP Paribas: la IA podría expandir el PIB de EE.UU. más de un 10% en una década</strong></blockquote><blockquote class="nquote"><em>Fuente: Yahoo Finance</em></blockquote><blockquote class="nquote">Economistas de BNP Paribas proyectan que la revolución de la inteligencia artificial impulsará la economía estadounidense en <strong>más de un 10% hasta 2034</strong>. El informe refuerza el optimismo macro sobre el sector tecnológico y apuntala el liderazgo de semiconductores en la sesión de hoy.</blockquote><blockquote class="nquote">📌 <strong>Afecta:</strong> <code>NVDA</code> <code>MSFT</code> <code>GOOGL</code> <code>AMD</code> (↑)</blockquote><hr class="ndivider"><h3 class="nh2">🌙 AFTER-HOURS — Movimientos tras el cierre</h3><div class="ntable-wrap"><table class="ntable"><tr><th>Dirección</th><th>Ticker</th><th>Empresa</th><th>Cambio</th><th>Motivo</th></tr><tr><td>🔴 ▼</td><td><code>NFLX</code></td><td>Netflix</td><td><strong>−8,94%</strong></td><td><em>Guías Q2 decepcionantes · salida de Reed Hastings</em></td></tr><tr><td>🟢 ▲</td><td><code>AMD</code></td><td>Advanced Micro Devices</td><td><strong>+7,80%</strong></td><td><em>Fuerte demanda en chips IA · revisión al alza guidance</em></td></tr></table></div><hr class="ndivider"><h3 class="nh2">🎯 PARA HOY — DATO CLAVE A VIGILAR</h3><blockquote class="nquote">🎯 <strong>Atención máxima a las negociaciones EE.UU.–Irán</strong>: la tregua vence el <strong>22 de abril</strong> y cualquier señal de extensión o ruptura moverá el petróleo, el VIX y los índices globales de forma inmediata. Paralelamente, el calendario de resultados trimestrales de las grandes tecnológicas (semana clave en earnings) puede amplificar la volatilidad intradiaria.</blockquote><hr class="ndivider"><p class="np"><em>📊 Generado automáticamente · Viernes 18 de abril de 2026 · 09:15 ET · Datos reales vía web search</em></p>
-    </div>
-  </div>
-</div>
-
-<div class="panel" id="panel-lp">
-  
+    <div class="card-body"><p class="np"><strong>Periódico Financiero Automatizado · Miércoles, 20 de mayo de 2026</strong></p>
+<hr class="ndivider">
+<h3 class="nh2">🌍 Índices del día</h3>
+<div class="ntable-wrap"><table class="ntable"><tr><th>Índice</th><th>Valor</th><th>Día %</th></tr><tr><td>S&amp;P 500</td><td>7.353,61</td><td><strong>−0,67%</strong></td></tr><tr><td>Nasdaq</td><td>25.871</td><td><strong>−0,84%</strong></td></tr><tr><td>FTSE 100</td><td>10.330,55</td><td><strong>+0,07%</strong></td></tr><tr><td>DAX</td><td>24.400,65</td><td><strong>+0,38%</strong></td></tr></table></div>
+<blockquote class="nquote"><strong>Contexto:</strong> Tercera sesión consecutiva de caídas en Wall Street. Bono 10A en 4,70% (máximo 16 meses) y bono 30A en 5,19% (máximo 18 años). El mercado aguarda los earnings de NVIDIA esta tarde. Europa resiste gracias a su menor exposición al sector tech.</blockquote>
+<hr class="ndivider">
+<h3 class="nh2">📊 Panel Macro</h3>
+<div class="ntable-wrap"><table class="ntable"><tr><th>Indicador</th><th>Valor</th><th>Estado</th></tr><tr><td><strong>VIX</strong></td><td>18,06 (+1,35%)</td><td>🟡 Normal</td></tr><tr><td><strong>DXY</strong></td><td>99,36 (+0,04%)</td><td>Dólar débil 🟢</td></tr><tr><td><strong>Bono EEUU 10A</strong></td><td>4,70% (+8 pb)</td><td>—</td></tr><tr><td><strong>Bono EEUU 2A</strong></td><td>4,15% (+1 pb)</td><td>—</td></tr><tr><td><strong>Diferencial 10A−2A</strong></td><td>+55 pb</td><td>✅ Curva normal</td></tr></table></div>
+<hr class="ndivider">
+<h3 class="nh2">📈 Acciones destacadas</h3>
+<h4 class="nh3">▲ Mayores subidas del día (S&amp;P 500)</h4>
+<div class="ntable-wrap"><table class="ntable"><tr><th>Ticker</th><th>Empresa</th><th>Día %</th><th>Contexto</th></tr><tr><td><strong>OXY</strong></td><td>Occidental Petroleum</td><td><strong>+7,2%</strong></td><td>WTI salta a $108,59; mayor beneficiario energético</td></tr><tr><td><strong>DVN</strong></td><td>Devon Energy</td><td><strong>+5,8%</strong></td><td>Correlación directa con el spike del petróleo</td></tr><tr><td><strong>MPC</strong></td><td>Marathon Petroleum</td><td><strong>+4,9%</strong></td><td>Márgenes de refinería se amplían con WTI en $108</td></tr><tr><td><strong>PSX</strong></td><td>Phillips 66</td><td><strong>+4,1%</strong></td><td>Mismo catalizador energético</td></tr><tr><td><strong>VLO</strong></td><td>Valero Energy</td><td><strong>+3,7%</strong></td><td>Beneficiaria del crudo alto</td></tr></table></div>
+<h4 class="nh3">▼ Mayores bajadas del día (S&amp;P 500)</h4>
+<div class="ntable-wrap"><table class="ntable"><tr><th>Ticker</th><th>Empresa</th><th>Día %</th><th>Contexto</th></tr><tr><td><strong>AMT</strong></td><td>American Tower</td><td><strong>−4,2%</strong></td><td>REIT: yields 4,70% destruyen la valoración inmobiliaria</td></tr><tr><td><strong>WELL</strong></td><td>Welltower</td><td><strong>−3,6%</strong></td><td>Mismo driver que AMT — REITs bajo máxima presión</td></tr><tr><td><strong>TSLA</strong></td><td>Tesla</td><td><strong>−2,9%</strong></td><td>Growth aplastado por yields en máximos de 18 años</td></tr><tr><td><strong>NVDA</strong></td><td>NVIDIA</td><td><strong>−1,9%</strong></td><td>Consolidación pre-earnings; resultado hoy tras cierre</td></tr><tr><td><strong>LOW</strong></td><td>Lowe's</td><td><strong>−1,5%</strong></td><td>Resultados Q1 por debajo de lo esperado</td></tr></table></div>
+<hr class="ndivider">
+<h3 class="nh2">⚡ Sectores S&amp;P 500</h3>
+<div class="ntable-wrap"><table class="ntable"><tr><th>Sector</th><th>ETF</th><th>Día %</th></tr><tr><td>🏆 Energía</td><td>XLE</td><td><strong>+4,2%</strong></td></tr><tr><td>Materias Primas</td><td>XLB</td><td><strong>+0,5%</strong></td></tr><tr><td>Financiero</td><td>XLF</td><td><strong>+0,2%</strong></td></tr><tr><td>Consumo Básico</td><td>XLP</td><td><strong>−0,1%</strong></td></tr><tr><td>Salud</td><td>XLV</td><td><strong>−0,5%</strong></td></tr><tr><td>Comunicaciones</td><td>XLC</td><td><strong>−0,7%</strong></td></tr><tr><td>Industriales</td><td>XLI</td><td><strong>−0,8%</strong></td></tr><tr><td>Consumo Discrecional</td><td>XLY</td><td><strong>−1,2%</strong></td></tr><tr><td>Servicios Públicos</td><td>XLU</td><td><strong>−1,5%</strong></td></tr><tr><td>Inmobiliario</td><td>XLRE</td><td><strong>−1,8%</strong></td></tr><tr><td>📉 Tecnología</td><td>XLK</td><td><strong>−1,8%</strong></td></tr></table></div>
+<blockquote class="nquote"><strong>Energía (XLE)</strong> lidera: WTI revierte +4,9% tras cancelación de operaciones militares sobre Irán. <strong>Tecnología (XLK)</strong> encadena otra jornada de presión por yields en máximos de 18 años.</blockquote>
+<hr class="ndivider">
+<h3 class="nh2">🛢️ Materias primas &amp; Cripto</h3>
+<h4 class="nh3">Materias primas</h4>
+<div class="ntable-wrap"><table class="ntable"><tr><th>Materia prima</th><th>Precio</th><th>Día %</th><th>Acciones afectadas</th></tr><tr><td><strong>Petróleo WTI</strong></td><td>$108,59/barril</td><td>+4,9%</td><td>XOM ↑, CVX ↑, OXY ↑; DAL ↓, UAL ↓</td></tr><tr><td><strong>Oro</strong></td><td>$4.468,70/oz</td><td>−2,3%</td><td>GLD ↓, NEM ↓</td></tr><tr><td><strong>Plata</strong></td><td>$78,20/oz</td><td>+0,6%</td><td>SLV ↑, PAAS ↑</td></tr><tr><td><strong>Gas Natural</strong></td><td>$3,11/MMBtu</td><td>+0,3%</td><td>CHK ↑</td></tr></table></div>
+<h4 class="nh3">Criptomonedas</h4>
+<div class="ntable-wrap"><table class="ntable"><tr><th>Cripto</th><th>Precio USD</th><th>Día %</th></tr><tr><td><strong>BTC</strong></td><td>$76.302</td><td>−0,06%</td></tr><tr><td><strong>ETH</strong></td><td>$2.102,67</td><td>−0,28%</td></tr><tr><td><strong>SOL</strong></td><td>$84,10</td><td>+0,22%</td></tr><tr><td><strong>XRP</strong></td><td>$1,37</td><td>−0,71%</td></tr><tr><td><strong>BNB</strong></td><td>$637,59</td><td>+0,17%</td></tr></table></div>
+<blockquote class="nquote">ETH a $2.102,67 — a solo $2,67 del soporte crítico $2.100. BTC en $76.302 sin recuperar los $80.000.</blockquote>
+<hr class="ndivider">
+<h3 class="nh2">📰 3 Noticias clave</h3>
+<h4 class="nh3">1. NVIDIA presenta earnings hoy: EPS consenso $1,78 e ingresos $79,2B</h4>
+<p class="np"><strong>Fuente:</strong> Yahoo Finance / CNBC / Morningstar</p>
+<blockquote class="nquote">Consenso de 61 analistas: EPS $1,78 e ingresos $79,2B. Factor diferencial: guidance sobre chips H200 para China, re-abierto desde el acuerdo Trump-Xi del 15 de mayo. Una superación puede revertir la tendencia bajista de tres sesiones.</blockquote>
+<h4 class="nh3">2. Yields soberanos en máximos históricos: bono 30A supera 5,19% por primera vez en 18 años</h4>
+<p class="np"><strong>Fuente:</strong> Bloomberg / Federal Reserve</p>
+<blockquote class="nquote">Nivel no visto desde 2008. El mercado ya no descuenta recortes de la Fed en 2026 y empieza a especular con una posible subida de tipos. REITs y utilities son los grandes perdedores de la semana.</blockquote>
+<h4 class="nh3">3. WTI revierte a $108,59 tras cancelación de planes militares sobre Irán</h4>
+<p class="np"><strong>Fuente:</strong> Reuters / CNBC</p>
+<blockquote class="nquote">Trump canceló los planes de operaciones militares contra instalaciones iraníes. El crudo recupera todo lo perdido ayer. La tesis de WTI estructuralmente por encima de $100 se mantiene intacta.</blockquote>
+<hr class="ndivider">
+<h3 class="nh2">🎯 Para hoy — A vigilar</h3>
+<blockquote class="nquote"><strong>Earnings de NVIDIA a las 22:00h ET:</strong> EPS consenso $1,78 + revenue $79,2B con H200 en China como catalizador.</blockquote>
+<hr class="ndivider">
+<h3 class="nh2">📈 Predicciones del Mercado</h3>
+<h4 class="nh3">Bloque A — Grandes</h4>
+<div class="ntable-wrap"><table class="ntable"><tr><th>Activo</th><th>Dirección</th><th>Confianza</th><th>Razón</th></tr><tr><td>S&amp;P 500</td><td>▼</td><td>Alta</td><td>Yields 10A 4,70% + NVDA pre-earnings freeze</td></tr><tr><td>NASDAQ</td><td>▼</td><td>Alta</td><td>Tech ~35% del índice; compresión yields + NVDA earnings</td></tr><tr><td>NVDA</td><td>→</td><td>Baja</td><td>Pre-earnings consolidation; evento binario</td></tr></table></div>
+<h4 class="nh3">Bloque B — Accesibles</h4>
+<div class="ntable-wrap"><table class="ntable"><tr><th>Activo</th><th>Precio hoy</th><th>Dirección</th><th>Largo plazo</th><th>Confianza</th></tr><tr><td>XLF</td><td>~$49,80</td><td>▲</td><td>💡 Acumular — Yield curve +55pb = expansión NIM bancaria</td><td>Alta</td></tr><tr><td>HAL</td><td>~$35,50</td><td>▲</td><td>💡 Acumular — WTI estructuralmente &gt;$100</td><td>Alta</td></tr><tr><td>SMH</td><td>~$247</td><td>▼</td><td>💡 Acumular — Si NVDA bate, SMH +4-5% mañana</td><td>Media</td></tr></table></div>
+<hr class="ndivider">
+<h3 class="nh2">✅ Verificación de Predicciones — Cierre del 19 de mayo</h3>
+<div class="ntable-wrap"><table class="ntable"><tr><th>Activo</th><th>Predicción</th><th>Resultado real</th><th>¿Acertó?</th></tr><tr><td>S&amp;P 500</td><td>→ Lateral</td><td>−0,31%</td><td>✅ Sí</td></tr><tr><td>NASDAQ</td><td>▼ Baja</td><td>−0,51%</td><td>✅ Sí</td></tr><tr><td>GOOGL</td><td>▲ Alta</td><td>+2,27% (máx. 52 semanas)</td><td>✅ Sí</td></tr><tr><td>XLC</td><td>▲ Alta</td><td>+1,20% (líder sectorial)</td><td>✅ Sí</td></tr><tr><td>MU</td><td>▲ Alta</td><td>+0,65% est.</td><td>✅ Sí</td></tr><tr><td>NVDA</td><td>→ Media</td><td>−0,74% (consolidación)</td><td>✅ Sí</td></tr></table></div>
+<p class="np"><strong>Tasa de acierto: 6/6 ✅</strong></p></div>
+  </div></div>
+  <div class="panel" id="panel-lp">
   <div class="card">
-    <div class="card-header" style="border-left:4px solid #f0a500">
-      <h2 class="card-title">📌 Cuaderno LP — Predicciones en Curso</h2>
-      <span class="card-date">2026-05-07</span>
+    <div class="card-header" style="border-top:3px solid #d4a84b">
+      
+      <h2 class="card-title">Cuaderno LP — Predicciones en Curso</h2>
+      <span class="card-date">Actualizado: 20 de mayo de 2026</span>
     </div>
-    <div class="card-body">
-      <blockquote class="nquote">Esta página es la memoria a largo plazo del analista. Se lee y actualiza automáticamente cada día antes de generar nuevas predicciones. <strong>No modificar manualmente las predicciones ya registradas</strong> — solo cambiar estado y añadir notas de revisión.</blockquote><hr class="ndivider"><h3 class="nh2">📋 Estado de posiciones — Vista rápida</h3><div class="ntable-wrap"><table class="ntable"><tr><th>Activo</th><th>Entrada</th><th>Estado</th><th>Evolución</th><th>Horizonte</th></tr><tr><td><strong>INTC</strong></td><td>~$108 · 06/05</td><td>🟢 En curso</td><td>+15,7%</td><td>3–6 meses</td></tr><tr><td><strong>XLI</strong></td><td>~$174 · 07/05</td><td>🟢 En curso</td><td>~−0,5%</td><td>6–12 meses</td></tr><tr><td><strong>XLE</strong></td><td>~$57 · 07/05</td><td>⏸️ En pausa</td><td>No entrado</td><td>Vigilancia</td></tr><tr><td><strong>XLK</strong></td><td>~$261 · 08/05</td><td>🟢 En curso</td><td>~+2,3%</td><td>6–12 meses</td></tr><tr><td><strong>BTC</strong></td><td>$80.918 · 08/05</td><td>🟢 En curso</td><td>~−0,1%</td><td>12+ meses</td></tr><tr><td><strong>MU</strong></td><td>$746,79 · 11/05</td><td>🟢 En curso</td><td>Día 1</td><td>3–6 meses</td></tr><tr><td><strong>AMAT</strong></td><td>$423,11 · 11/05</td><td>🟢 En curso</td><td>Día 1</td><td>6–12 meses</td></tr></table></div><hr class="ndivider"><h3 class="nh2">📌 Fichas de posición</h3><h4 class="nh3">NVDA — NVIDIA Corporation</h4><ul class="nlist"><li><strong>Apertura:</strong> 15/05/2026 · <strong>Precio entrada:</strong> $229,85 · <strong>Precio hoy:</strong> $229,85</li><li><strong>Tesis:</strong> Re-apertura del mercado chino de IA tras el acuerdo Trump-Xi: EEUU aprueba exportar chips H200 a ~10 empresas chinas. NVDA es el único proveedor de GPUs de IA de referencia mundial — el acceso a China es un multiplicador directo de ingresos. Jensen Huang presente en la delegación oficial de Trump en Pekín como interlocutor estratégico. Adicionalmente, la huelga de Samsung beneficia el ecosistema semiconductor americano.</li><li><strong>Horizonte:</strong> 3–6 meses · <strong>Evolución:</strong> Día 1</li><li><strong>Última revisión (15/05):</strong> Nueva entrada. La aprobación de H200 para China es el catalizador más concreto y directo de la semana para NVDA. Condición de salida: si el acuerdo de chips se revoca, o si una GPU alternativa (AMD MI400) gana cuota de mercado significativa en centros de datos.</li><li><strong>Revisión (18/05):</strong> $224,41 (−2,4% desde entrada). Compresión pre-earnings normal — NVDA reporta el miércoles 20/05 con EPS consenso $1,78 y revenue $79,2B. Este es el test más importante de la tesis. Una superación de guidance puede impulsar +10%+; una decepción puede invalidar la tesis parcialmente. MANTENER hasta earnings.</li></ul><hr class="ndivider"><h4 class="nh3">INTC — Intel Corporation</h4><ul class="nlist"><li><strong>Apertura:</strong> 06/05/2026 · <strong>Precio entrada:</strong> ~$108 · <strong>Precio hoy:</strong> $124,92</li><li><strong>Tesis:</strong> Transformación hacia modelo foundry + conversaciones con Apple para fabricación de chips. Si el acuerdo Apple-Intel se confirma, INTC recuperaría cuota perdida frente a TSMC.</li><li><strong>Horizonte:</strong> 3–6 meses · <strong>Evolución:</strong> +15,7%</li><li><strong>Última revisión (11/05):</strong> Intel sube +14% hoy — inversión Trump $30B + Apple foundry confirman la tesis. Yahoo Finance: "Intel Is Up 190% in 2026". Atención a posible sobrecompra a corto, pero tesis LP intacta. Sin señal de salida.</li></ul><hr class="ndivider"><h4 class="nh3">XLI — ETF Industriales (SPDR)</h4><ul class="nlist"><li><strong>Apertura:</strong> 07/05/2026 · <strong>Precio entrada:</strong> ~$174</li><li><strong>Tesis:</strong> Sector beneficiado por gasto en infraestructura IA y defensa. Motor estructural independiente del ciclo corto.</li><li><strong>Horizonte:</strong> 6–12 meses · <strong>Evolución:</strong> ~−0,5%</li><li><strong>Última revisión (11/05):</strong> Sector sin dirección clara hoy (~0%). Tesis LP (defensa + infraestructura IA) intacta. Acumular en caídas.</li></ul><hr class="ndivider"><h4 class="nh3">XLE — ETF Energía (SPDR) — ⏸️ EN PAUSA</h4><ul class="nlist"><li><strong>Apertura:</strong> 07/05/2026 · <strong>Precio entrada:</strong> ~$57 · <strong>Precio hoy:</strong> ~$56,22</li><li><strong>Tesis:</strong> Esperar estabilización del WTI en $90–95 antes de entrar. El spike por escalada iraní no es la base sólida que se busca.</li><li><strong>Horizonte:</strong> Vigilancia · <strong>Condición de entrada:</strong> WTI consolida sostenidamente en rango $90–95</li><li><strong>Última revisión (11/05):</strong> WTI sube a $99 por rechazo de Trump a la propuesta iraní — spike geopolítico, no estabilización orgánica. Mantener pausa. Reevaluar cuando haya resolución del conflicto.</li></ul><hr class="ndivider"><h4 class="nh3">XLK — ETF Tecnología (SPDR)</h4><ul class="nlist"><li><strong>Apertura:</strong> 08/05/2026 · <strong>Precio entrada:</strong> ~$261</li><li><strong>Tesis:</strong> Sector tech liderado por narrativa IA: NVDA, MSFT, GOOGL. Motor estructural del ciclo actual. Vehículo más eficiente para capitalizar el ecosistema IA a largo plazo.</li><li><strong>Horizonte:</strong> 6–12 meses · <strong>Evolución:</strong> ~+2,3%</li><li><strong>Última revisión (11/05):</strong> Tech lidera hoy (+2,5% est.) impulsado por ola semiconductores: INTC +14%, MU +15,5%, AMD +9,4%. Momentum sostenido. Tesis LP intacta.</li></ul><hr class="ndivider"><h4 class="nh3">BTC — Bitcoin ❌ CERRADA</h4><ul class="nlist"><li><strong>Apertura:</strong> 08/05/2026 · <strong>Precio entrada:</strong> $80.918</li><li><strong>Cierre:</strong> 11/05/2026 · <strong>Motivo:</strong> Precio unitario demasiado elevado para el perfil del inversor — BTC a $80.000+ no se siente accesible aunque sea fraccionable.</li><li><strong>Resultado:</strong> Sin pérdida real (posición teórica, no ejecutada).</li><li><strong>Nota:</strong> Crypto sí es válida en el Bloque B y cuaderno LP, pero con precios unitarios accesibles: SOL (~$95), XRP (~$1,42), ETH si baja a zona cómoda. Evitar BTC de forma proactiva.</li></ul><hr class="ndivider"><h4 class="nh3">MU — Micron Technology</h4><ul class="nlist"><li><strong>Apertura:</strong> 11/05/2026 · <strong>Precio entrada:</strong> $746,79</li><li><strong>Tesis:</strong> Superciclo chips IA — demanda estructural garantizada por expansión de centros de datos. Catalizador inmediato: cumbre Trump-Xi (14-15 mayo) sobre exportación de chips y guardarraíles IA.</li><li><strong>Horizonte:</strong> 3–6 meses · <strong>Evolución:</strong> Día 1</li><li><strong>Última revisión (11/05):</strong> Nueva entrada. Sube +15,52% hoy anticipando acuerdos Trump-Xi + resultados del ciclo de chips. Horizonte 3–6 meses.</li></ul><hr class="ndivider"><h4 class="nh3">AMAT — Applied Materials</h4><ul class="nlist"><li><strong>Apertura:</strong> 11/05/2026 · <strong>Precio entrada:</strong> $423,11</li><li><strong>Tesis:</strong> Proveedor líder de equipos de fabricación de chips; beneficiario estructural de la ola de inversión en semiconductores post-Trump policy. Resultados esta semana = catalizador inmediato.</li><li><strong>Horizonte:</strong> 6–12 meses · <strong>Evolución:</strong> ~+3% est.</li><li><strong>Última revisión (11/05):</strong> Nueva entrada. Resultados de la semana del 11/5 son el primer test de la tesis. Horizonte 6–12 meses.</li><li><strong>Revisión (12/05):</strong> La ola semiconductores del lunes (INTC +14%, MU +15,5%) debería haber arrastrado a AMAT +5–8% por correlación sectorial. Tesis LP intacta. Cumbre Trump-Xi (14-15 mayo) es el próximo catalizador clave.</li></ul><hr class="ndivider"><h4 class="nh3">XLB — ETF Materiales (SPDR)</h4><ul class="nlist"><li><strong>Apertura:</strong> 12/05/2026 · <strong>Precio entrada:</strong> ~$93,50</li><li><strong>Tesis:</strong> Plata en máximos de 2 meses ($85,50, +6%) y oro en récord histórico ($4.714) impulsan el sector materiales. La tensión geopolítica con Irán actúa como catalizador sostenido para los metales preciosos. DXY débil (97,93) refuerza la tesis.</li><li><strong>Horizonte:</strong> 6–12 meses · <strong>Evolución:</strong> Día 1</li><li><strong>Última revisión (12/05):</strong> Nueva entrada. Plata +7,6% hoy = señal de momentum real en metales. Energía sectorial (+0,60%) confirma la narrativa. Condición de salida: DXY supera 104 de forma sostenida o resolución iraní estabiliza metales.</li></ul><hr class="ndivider"><h4 class="nh3">SOL — Solana</h4><ul class="nlist"><li><strong>Apertura:</strong> 12/05/2026 · <strong>Precio entrada:</strong> $97,55</li><li><strong>Tesis:</strong> Solana con momentum cripto positivo (+2,15% hoy), ecosistema DeFi con tracción real y precio fraccionable accesible para el perfil del inversor. Entorno risk-on moderado (BTC +1,5%, XRP +4,2%) confirma rotación hacia cripto alternativa.</li><li><strong>Horizonte:</strong> 6–12 meses · <strong>Evolución:</strong> Día 1</li><li><strong>Última revisión (12/05):</strong> Nueva entrada. XRP +4,2% hoy = posible rotación hacia altcoins. BTC superando $82.000 da soporte al ecosistema. Condición de seguimiento: BTC mantiene $80.000+ como soporte.</li><li><strong>Revisión (18/05):</strong> $86,88 (−10,9% desde entrada $97,55). BTC ha caído por debajo de $80.000 (hoy $78.362) — condición de la tesis LP ROTA. Estado cambia a ⏸️ En pausa. No acumular SOL hasta que BTC recupere y consolide por encima de $80K. Reevaluar cuando BTC restablezca el soporte.</li></ul><hr class="ndivider"><h4 class="nh3">XLV — SPDR Healthcare ETF</h4><ul class="nlist"><li><strong>Apertura:</strong> 13/05/2026 · <strong>Precio entrada:</strong> ~$157</li><li><strong>Tesis:</strong> Sector defensivo que históricamente outperforma en entornos inflacionarios con tipos elevados. Flujos de caja sanitarios predecibles e independientes del ciclo de tipos. Motor de protección en portafolio durante fases de inflación persistente.</li><li><strong>Horizonte:</strong> 3–6 meses · <strong>Evolución:</strong> Día 1</li><li><strong>Última revisión (13/05):</strong> Nueva entrada. CPI +3,8% confirma entorno de tipos altos por más tiempo — exactamente el escenario favorable para healthcare defensivo.</li></ul><hr class="ndivider"><h4 class="nh3">GLD — SPDR Gold Shares ETF</h4><ul class="nlist"><li><strong>Apertura:</strong> 13/05/2026 · <strong>Precio entrada:</strong> ~$449</li><li><strong>Tesis:</strong> Oro en máximos históricos (~$4.682/oz) con tres motores simultáneos: inflación alta (+3,8%), DXY débil (98,37) y geopolítica activa (bloqueo Estrecho de Ormuz). La caída de hoy (-0,7%) es una corrección técnica por presión de tipos, no un cambio de tendencia.</li><li><strong>Horizonte:</strong> 3–6 meses · <strong>Evolución:</strong> Día 1</li><li><strong>Última revisión (13/05):</strong> Nueva entrada. La caída hoy = oportunidad de entrada LP con tesis intacta. Condición de salida: DXY supera 104 sostenidamente o CPI baja hacia 2,5%.</li></ul><hr class="ndivider"><h4 class="nh3">ETH — Ethereum</h4><ul class="nlist"><li><strong>Apertura:</strong> 13/05/2026 · <strong>Precio entrada:</strong> $2.301</li><li><strong>Tesis:</strong> Ethereum es el segundo activo cripto por capitalización con el ecosistema DeFi más robusto. A $2.301, se encuentra en zona de soporte técnico ($2.200–2.300) y dentro del rango cómodo para el perfil de Stefano. Alternativa accesible a BTC con fundamentos sólidos.</li><li><strong>Horizonte:</strong> 6–12 meses · <strong>Evolución:</strong> Día 1</li><li><strong>Última revisión (13/05):</strong> Nueva entrada. Macro pesimista hoy (CPI +3,8%) pesa sobre cripto, pero el soporte en $2.200–2.300 es sólido. Condición de seguimiento: BTC mantiene $80.000+ y el ecosistema DeFi no muestra señales de deterioro.</li><li><strong>Revisión (14/05):</strong> ETH $2.250 (-2,2% desde entrada). Cripto en corrección general (BTC -1,78%, SOL -4,37%). Soporte en $2.200-2.250 resistiendo. Tesis LP intacta; vigilar $2.100 como nivel crítico.</li></ul><hr class="ndivider"><h4 class="nh3">XLC — SPDR Communication Services ETF</h4><ul class="nlist"><li><strong>Apertura:</strong> 14/05/2026 · <strong>Precio entrada:</strong> ~$100</li><li><strong>Tesis:</strong> GOOGL y META (ambas en XLC) lideran el mercado hoy con +4% y +3,2% respectivamente. El sector comunicaciones concentra los activos tech con mayor exposición a publicidad digital e IA conversacional. Motor estructural del ciclo actual. Vehículo más eficiente para capturar GOOGL + META en un solo activo.</li><li><strong>Horizonte:</strong> 6–12 meses · <strong>Evolución:</strong> Día 1</li><li><strong>Última revisión (14/05):</strong> Nueva entrada. XLC lidera el S&amp;P 500 hoy (+3,5%). Cumbre Trump-Xi actúa como catalizador para plataformas digitales. Condición de salida: si GOOGL o META reportan deterioro significativo en publicidad o la narrativa IA se enfría.</li></ul><hr class="ndivider"><h4 class="nh3">CSCO — Cisco Systems</h4><ul class="nlist"><li><strong>Apertura:</strong> 14/05/2026 · <strong>Precio entrada:</strong> ~$72</li><li><strong>Tesis:</strong> Cisco reportó Q3 2026 histórico: networking +25%, BPA $1,06 (+2% sobre consenso), ingresos $15.840M (+1,8% sobre consenso), guidance Q4 $16.700-16.900M. Los resultados confirman que el ciclo de inversión en infraestructura de red para IA es real, estructural y apenas comenzando. Cisco es el proveedor líder de redes empresariales para centros de datos de IA.</li><li><strong>Horizonte:</strong> 3–6 meses · <strong>Evolución:</strong> Día 1</li><li><strong>Última revisión (14/05):</strong> Nueva entrada. +19% hoy tras resultados. Parte del movimiento ya está descontado — la entrada ideal sería en una corrección hacia $65-68. Sin embargo, el catalizador estructural (inversión en redes IA) es real y sostenible. Condición de salida: si el gasto en centros de datos IA se desacelera materialmente.</li></ul><hr class="ndivider">
-    </div>
-  </div>
-</div>
-
-<div class="panel" id="panel-ia">
-  
+    <div class="card-body"><blockquote class="nquote">Esta página es la memoria a largo plazo del analista. Se lee y actualiza automáticamente cada día antes de generar nuevas predicciones.</blockquote>
+<hr class="ndivider">
+<h3 class="nh2">📋 Estado de posiciones — Vista rápida</h3>
+<div class="ntable-wrap"><table class="ntable"><tr><th>Activo</th><th>Entrada</th><th>Estado</th><th>Evolución</th><th>Horizonte</th></tr><tr><td><strong>INTC</strong></td><td>~$108 · 06/05</td><td>🟢 En curso</td><td>+15,7%</td><td>3–6 meses</td></tr><tr><td><strong>XLI</strong></td><td>~$174 · 07/05</td><td>🟢 En curso</td><td>~−0,5%</td><td>6–12 meses</td></tr><tr><td><strong>XLE</strong></td><td>~$57 · 07/05</td><td>⏸️ En pausa</td><td>No entrado</td><td>Vigilancia</td></tr><tr><td><strong>XLK</strong></td><td>~$261 · 08/05</td><td>🟢 En curso</td><td>~+2,3%</td><td>6–12 meses</td></tr><tr><td><strong>MU</strong></td><td>$746,79 · 11/05</td><td>🟢 En curso</td><td>+3,5%</td><td>3–6 meses</td></tr><tr><td><strong>AMAT</strong></td><td>$423,11 · 11/05</td><td>🟢 En curso</td><td>~+0,4%</td><td>6–12 meses</td></tr><tr><td><strong>XLB</strong></td><td>~$93,50 · 12/05</td><td>🟢 En curso</td><td>~−5,3%</td><td>6–12 meses</td></tr><tr><td><strong>SOL</strong></td><td>$97,55 · 12/05</td><td>⏸️ En pausa</td><td>−13,8%</td><td>Vigilancia</td></tr><tr><td><strong>XLV</strong></td><td>~$157 · 13/05</td><td>🟢 En curso</td><td>~−3,2%</td><td>3–6 meses</td></tr><tr><td><strong>GLD</strong></td><td>~$449 · 13/05</td><td>🟢 En curso</td><td>~−4,7%</td><td>3–6 meses</td></tr><tr><td><strong>ETH</strong></td><td>$2.301 · 13/05</td><td>🟠 ALERTA</td><td>−8,6%</td><td>6–12 meses</td></tr><tr><td><strong>XLC</strong></td><td>~$100 · 14/05</td><td>🟢 En curso</td><td>~+0%</td><td>6–12 meses</td></tr><tr><td><strong>CSCO</strong></td><td>~$72 · 14/05</td><td>🟢 En curso</td><td>~+8,3%</td><td>3–6 meses</td></tr><tr><td><strong>NVDA</strong></td><td>$229,85 · 15/05</td><td>🟢 En curso</td><td>−5,0%</td><td>3–6 meses</td></tr><tr><td><strong>XOM</strong></td><td>~$118 · 18/05</td><td>🟢 En curso</td><td>~+1,5%</td><td>6–12 meses</td></tr><tr><td><strong>XLP</strong></td><td>~$82 · 18/05</td><td>🟢 En curso</td><td>~+0%</td><td>6–12 meses</td></tr><tr><td><strong>XLF</strong></td><td>~$49,80 · 20/05</td><td>🟢 En curso</td><td>Día 1</td><td>6–12 meses</td></tr><tr><td><strong>HAL</strong></td><td>~$35,50 · 20/05</td><td>🟢 En curso</td><td>Día 1</td><td>3–6 meses</td></tr><tr><td><strong>SMH</strong></td><td>~$247 · 20/05</td><td>🟢 En curso</td><td>Día 1</td><td>3–6 meses</td></tr><tr><td><strong>BTC</strong></td><td>$80.918 · 08/05</td><td>❌ Cerrada</td><td>—</td><td>—</td></tr></table></div>
+<hr class="ndivider">
+<h3 class="nh2">📌 Fichas de posición activas</h3>
+<h4 class="nh3">NVDA — NVIDIA Corporation</h4>
+<ul class="nlist nlist-lp"><li><strong>Apertura:</strong> 15/05/2026 · <strong>Entrada:</strong> $229,85 · <strong>Hoy:</strong> ~$218,50 (−5,0%)</li><li><strong>Tesis:</strong> Re-apertura del mercado chino de IA tras el acuerdo Trump-Xi. NVDA es el único proveedor de GPUs de IA de referencia mundial.</li><li><strong>Revisión (20/05):</strong> ⚡ TEST DEFINITIVO ESTA TARDE. EPS esperado $1,78 + revenue $79,2B.</li></ul>
+<h4 class="nh3">INTC — Intel Corporation</h4>
+<ul class="nlist nlist-lp"><li><strong>Apertura:</strong> 06/05/2026 · <strong>Entrada:</strong> ~$108 · <strong>Evolución:</strong> +15,7%</li><li><strong>Tesis:</strong> Transformación hacia modelo foundry + Apple chips + inversión Trump $30B.</li></ul>
+<h4 class="nh3">XLF — SPDR Financial Select Sector ETF</h4>
+<ul class="nlist nlist-lp"><li><strong>Apertura:</strong> 20/05/2026 · <strong>Entrada:</strong> ~$49,80 · Día 1</li><li><strong>Tesis:</strong> Yields 10A 4,70% + 30A 5,19% = expansión NIM bancaria en máximos. JPMorgan, BofA, Goldman generando máximos de beneficio neto.</li></ul>
+<h4 class="nh3">HAL — Halliburton Company</h4>
+<ul class="nlist nlist-lp"><li><strong>Apertura:</strong> 20/05/2026 · <strong>Entrada:</strong> ~$35,50 · Día 1</li><li><strong>Tesis:</strong> Mayor proveedor de servicios oilfield de EEUU. WTI estructuralmente &gt;$100 por conflicto Irán activo.</li></ul>
+<h4 class="nh3">SMH — VanEck Semiconductor ETF</h4>
+<ul class="nlist nlist-lp"><li><strong>Apertura:</strong> 20/05/2026 · <strong>Entrada:</strong> ~$247 · Día 1</li><li><strong>Tesis:</strong> NVDA (~20%) + TSMC, ASML, AMD, INTC, MU, AMAT. Si NVIDIA supera esta tarde, SMH puede subir +4-5% mañana.</li></ul>
+<h4 class="nh3">ETH — Ethereum 🟠 ALERTA</h4>
+<ul class="nlist nlist-lp"><li><strong>Apertura:</strong> 13/05/2026 · <strong>Entrada:</strong> $2.301 · <strong>Hoy:</strong> $2.102,67 (−8,6%)</li><li><strong>⚠️ ALERTA MÁXIMA:</strong> A solo $2,67 del soporte crítico $2.100. Si cierra por debajo = ⏸️ pausa inmediata.</li></ul>
+<h4 class="nh3">SOL — Solana ⏸️ EN PAUSA</h4>
+<ul class="nlist nlist-lp"><li><strong>Apertura:</strong> 12/05/2026 · <strong>Entrada:</strong> $97,55 · <strong>Hoy:</strong> $84,10 (−13,8%)</li><li><strong>Estado:</strong> BTC rompió $80.000 — condición LP rota. No acumular hasta recuperación.</li></ul>
+<h4 class="nh3">GLD — SPDR Gold Shares ETF</h4>
+<ul class="nlist nlist-lp"><li><strong>Apertura:</strong> 13/05/2026 · <strong>Entrada:</strong> ~$449 · <strong>Evolución:</strong> ~−4,7%</li><li><strong>Tesis:</strong> Oro en máximos históricos. Tres motores: inflación alta (+3,8%), DXY débil, geopolítica Irán activa.</li></ul>
+<h4 class="nh3">XOM — Exxon Mobil Corporation</h4>
+<ul class="nlist nlist-lp"><li><strong>Apertura:</strong> 18/05/2026 · <strong>Entrada:</strong> ~$118 · <strong>Evolución:</strong> ~+1,5%</li><li><strong>Tesis:</strong> WTI estructuralmente &gt;$100 por conflicto Irán. FCF récord. Dividendo 3,2%.</li></ul>
+<hr class="ndivider">
+<h3 class="nh2">📐 Guía de estados</h3>
+<div class="ntable-wrap"><table class="ntable"><tr><th>Estado</th><th>Significado</th></tr><tr><td>🟢 En curso</td><td>Tesis intacta, evolucionando en la dirección esperada</td></tr><tr><td>🟠 Alerta</td><td>Tesis bajo presión — vigilar nivel crítico</td></tr><tr><td>⏸️ En pausa</td><td>Evento externo cambia el contexto — no entrar aún</td></tr><tr><td>❌ Invalidada</td><td>El mercado fue en contra — tesis ya no aplica</td></tr><tr><td>✅ Cumplida</td><td>Objetivo alcanzado o tesis confirmada claramente</td></tr></table></div></div>
+  </div></div>
+  <div class="panel" id="panel-ia">
   <div class="card">
-    <div class="card-header" style="border-left:4px solid #00d4ff">
-      <h2 class="card-title">Newsletter IA — Semana del 18 de abril de 2026</h2>
-      <span class="card-date">2026-04-18</span>
+    <div class="card-header" style="border-top:3px solid #4a9eba">
+      <span class="card-badge" style="background:#4a9eba20;color:#4a9eba;border:1px solid #4a9eba40">NUEVO</span>
+      <h2 class="card-title">IA Weekly — Semana del 24 de mayo de 2026</h2>
+      <span class="card-date">Edición más reciente</span>
     </div>
-    <div class="card-body">
-      <h2 class="nh1">📰 La noticia de la semana</h2><p class="np"><strong>El sprint de lanzamientos de IA más intenso de la historia reciente acaba de terminar… o quizá apenas empieza.</strong></p><p class="np">Entre finales de marzo y esta semana, tres de los laboratorios más grandes del mundo — Anthropic, Google DeepMind y xAI — lanzaron modelos de frontera con apenas días de diferencia entre sí. Eso no había pasado antes con esta densidad. Y no es casualidad: la presión competitiva está al máximo.</p><p class="np">Lo más relevante para alguien que está aprendiendo IA: <strong>ya no hace falta pagar para acceder a modelos muy potentes</strong>. Google lanzó Gemma 4 con licencia completamente abierta (Apache 2.0), lo que significa que puedes descargarlo, modificarlo y usarlo sin pedir permiso ni pagar un centavo. El modelo más pequeño (E2B) corre directamente en un teléfono Android. El de 26B parámetros funciona en una GPU de consumo normal.</p><p class="np">Contexto histórico: hace dos años, los únicos modelos realmente capaces eran los de OpenAI, accesibles solo vía API de pago. Hoy, en abril de 2026, tienes cinco modelos de código abierto entre los diez mejores del mundo. Eso cambia todo el ecosistema — y es especialmente bueno si estás empezando, porque tienes más opciones gratuitas que nunca.</p><hr class="ndivider"><h2 class="nh1">🔍 Novedades de la semana</h2><h3 class="nh2">1. Grok 4.3 Beta — xAI sube la apuesta (de nuevo)</h3><p class="np"><strong>Qué pasó:</strong> xAI lanzó el 17 de abril Grok 4.3 Beta, su modelo más avanzado hasta ahora, con capacidades de crear PDFs, presentaciones PowerPoint, hojas de cálculo y procesar vídeo como entrada.</p><p class="np"><strong>Por qué importa para un principiante:</strong> Si usas Grok regularmente, este modelo será eventualmente accesible en versiones inferiores. La novedad de procesar vídeo directamente es algo que simplifica muchos flujos de trabajo creativos.</p><p class="np"><strong>Cómo probarlo tú:</strong> Ve a grok.com. La versión gratuita da acceso a Grok 4.1. Para Grok 4.3 Beta necesitas SuperGrok Heavy ($300/mes), así que honestamente: espera a que bajen de precio o prueba las versiones anteriores.</p><p class="np"><strong>Nivel de dificultad:</strong> Fácil (la interfaz web es muy sencilla)</p><hr class="ndivider"><h3 class="nh2">2. Gemma 4 de Google — IA de código abierto que corre en tu teléfono</h3><p class="np"><strong>Qué pasó:</strong> Google lanzó Gemma 4, su familia de modelos de código abierto más capaz hasta la fecha. Viene en cuatro tamaños: E2B (para móviles), E4B (dispositivos edge), 26B MoE y 31B Dense. Todos son multimodales (texto + imagen + vídeo). Licencia Apache 2.0: úsalo como quieras.</p><p class="np"><strong>Por qué importa para un principiante:</strong> Es el modelo open source más capaz para correr localmente. El 31B ocupa el puesto #3 en rankings globales de IA de texto. Puedes tenerlo en tu computadora sin conexión a internet ni suscripciones.</p><p class="np"><strong>Cómo probarlo tú:</strong></p><ul class="nlist"><li>Instala Ollama en tu computadora (Mac, Windows o Linux)</li><li>Abre la terminal y escribe: <code>ollama run gemma4</code></li><li>Espera que se descargue (unos minutos)</li><li>¡Listo! Escribe tus preguntas directamente en la terminal</li><li>Alternativa sin instalar nada: pruébalo en Google AI Studio de forma gratuita</li></ul><p class="np"><strong>Nivel de dificultad:</strong> Medio (Ollama requiere usar la terminal, pero es muy guiado)</p><hr class="ndivider"><h3 class="nh2">3. Claude Opus 4.7 — Anthropic lanza su nuevo buque insignia</h3><p class="np"><strong>Qué pasó:</strong> Anthropic lanzó Claude Opus 4.7, su modelo más avanzado, diseñado específicamente para razonamiento complejo y flujos de trabajo agénticos de larga duración (es decir, tareas que se extienden por horas o días de forma autónoma).</p><p class="np"><strong>Por qué importa para un principiante:</strong> Claude Opus 4.7 actualmente encabeza los rankings de preferencia humana en LMArena con 1,504 puntos Elo. Si usas Claude.ai, ya tienes acceso a modelos de esta familia. La versión gratuita sigue siendo muy competente para tareas cotidianas.</p><p class="np"><strong>Cómo probarlo tú:</strong> Ve a claude.ai, crea una cuenta gratuita y empieza a chatear. Para Opus 4.7 específicamente necesitas el plan Pro ($20/mes).</p><p class="np"><strong>Nivel de dificultad:</strong> Fácil</p><hr class="ndivider"><h3 class="nh2">4. Meta debuta Muse Spark — el primer gran modelo propio tras la inversión de $14B</h3><p class="np"><strong>Qué pasó:</strong> Meta lanzó Muse Spark, su nuevo modelo propietario multimodal (texto, imagen, audio, vídeo) con buen desempeño en tareas de razonamiento, salud y agentes autónomos. Es el primer lanzamiento importante desde que Meta invirtió $14 mil millones trayendo a Alexandr Wang (fundador de Scale AI).</p><p class="np"><strong>Por qué importa para un principiante:</strong> Indica que Meta está volviendo a competir en el segmento de modelos propietarios (no solo open source con Llama). Todavía no es accesible al público general de forma directa, pero probablemente llegue a las apps de Meta pronto.</p><p class="np"><strong>Cómo probarlo tú:</strong> Por ahora, seguir el anuncio en CNBC. Acceso público limitado por ahora.</p><p class="np"><strong>Nivel de dificultad:</strong> Avanzado (acceso muy restringido aún)</p><hr class="ndivider"><h3 class="nh2">5. NVIDIA celebra la Semana Nacional de Robótica con nuevos modelos Isaac GR00T</h3><p class="np"><strong>Qué pasó:</strong> NVIDIA liberó nuevos modelos abiertos Isaac GR00T que permiten a robots entender instrucciones en lenguaje natural y realizar tareas complejas usando visión + lenguaje + acción. También lanzó nuevos modelos Cosmos para generar datos sintéticos para entrenar robots.</p><p class="np"><strong>Por qué importa para un principiante:</strong> La IA ya no solo vive en la pantalla. Estos modelos son los que van a permitir que un robot físico entienda "pon la taza sobre la mesa" sin programación explícita. Es el campo de Physical AI, que va a crecer mucho en los próximos meses.</p><p class="np"><strong>Cómo probarlo tú:</strong> Revisa el blog de NVIDIA y los modelos en Hugging Face. Si tienes GPU NVIDIA, puedes experimentar con los modelos Cosmos.</p><p class="np"><strong>Nivel de dificultad:</strong> Avanzado</p><hr class="ndivider"><h2 class="nh1">🛠️ Herramienta de la semana</h2><p class="np"><strong>Gemma 4 vía Google AI Studio</strong></p><p class="np">🔗 aistudio.google.com</p><p class="np"><strong>Qué hace:</strong> Te da acceso gratuito a los modelos Gemma 4 de Google (y Gemini) directamente en el navegador, sin instalar nada, con soporte para texto, imágenes y documentos.</p><p class="np"><strong>Tutorial de 5 pasos para empezar desde cero:</strong></p><ul class="nlist"><li>Ve a aistudio.google.com e inicia sesión con tu cuenta de Google</li><li>En el panel izquierdo, haz clic en "New prompt" (Nuevo prompt)</li><li>En la esquina superior derecha, despliega el selector de modelos y elige "Gemma 4 27B" o cualquier variante disponible</li><li>Escribe tu consulta en el cuadro de texto inferior y presiona Enter o el botón de enviar</li><li>Experimenta subiendo una imagen (botón de clip) y preguntando sobre ella — el modelo la analizará directamente</li></ul><p class="np"><strong>Casos de uso concretos:</strong></p><ul class="nlist"><li><strong>Resumir un PDF largo</strong>: Arrastra un documento al chat y pide "resume este documento en 5 puntos clave en español"</li><li><strong>Analizar una foto</strong>: Sube una imagen de un recibo, un menú o una planta y pídele que la describa o identifique</li><li><strong>Generar código simple</strong>: Pídele que te escriba una fórmula de Excel o un script de Python sencillo para automatizar algo</li></ul><p class="np"><strong>Limitaciones del plan gratuito:</strong></p><ul class="nlist"><li>Límite de solicitudes por minuto (rate limit) — si envías muchas preguntas rápido, te pedirá que esperes</li><li>No guarda el historial de conversaciones a largo plazo</li><li>No tiene acceso a internet en tiempo real (no sabe qué pasó hoy)</li><li>Los modelos más grandes pueden estar reservados para el plan de pago (Google AI Pro)</li></ul><hr class="ndivider"><h2 class="nh1">💡 Concepto de la semana</h2><h3 class="nh2">Mezcla de Expertos (Mixture of Experts / MoE)</h3><p class="np"><strong>Explicación sin jerga:</strong> Imagina un hospital. Cuando llegas con un problema, no te atienden todos los médicos a la vez — te mandan con el especialista adecuado. Si tienes una fractura, vas al traumatólogo. Si tienes gripe, al médico general. Eso es exactamente lo que hace un modelo MoE: en lugar de usar todos sus "cerebros" (parámetros) para cada tarea, solo activa los que son relevantes para esa pregunta concreta.</p><p class="np"><strong>La analogía del mundo real:</strong> Un modelo MoE es como una empresa con muchos departamentos especializados y una recepcionista inteligente que sabe a cuál mandarte según tu consulta. No pagas por los departamentos que no usas.</p><p class="np"><strong>Por qué lo necesitas entender:</strong> Porque los modelos MoE son más eficientes — pueden tener muchos parámetros totales (y por tanto ser muy capaces) pero consumir muchos menos recursos por inferencia que un modelo denso del mismo tamaño. Gemma 4 26B MoE, por ejemplo, tiene 26 mil millones de parámetros pero funciona en hardware de consumidor normal. Cuando veas "MoE" en la descripción de un modelo, es una señal de que probablemente corre más rápido y en hardware más humilde.</p><p class="np"><strong>Ejemplo práctico:</strong> Gemma 4 26B MoE usa esta arquitectura. Por eso puede correr en una GPU gaming normal (tipo RTX 4090) en lugar de requerir servidores especializados de datacenter. Si alguna vez te preguntas "¿por qué este modelo tan grande corre en mi computadora?", la respuesta probablemente sea: MoE.</p><hr class="ndivider"><h2 class="nh1">📚 Recursos para seguir aprendiendo</h2><ul class="nlist"><li><strong>Google AI Studio</strong> — Plataforma gratuita de Google para experimentar con Gemma 4 y Gemini. Sin tarjeta de crédito, sin instalación. El mejor punto de entrada para probar modelos de última generación hoy mismo.</li><li><strong>Ollama</strong> — Herramienta gratuita para correr modelos de IA localmente en tu computadora (Mac, Windows, Linux). Soporte para Gemma 4, Llama 3, Mistral y docenas más. Una sola línea de comando para empezar.</li><li><strong>Hugging Face</strong> — El repositorio central de modelos de IA de código abierto. Tiene demos gratuitos de casi todos los modelos importantes, documentación y guías para principiantes. Piénsalo como el "GitHub de la IA".</li><li><strong>MIT Technology Review — Estado de la IA 2026 con gráficos</strong> — Un artículo excelente con visualizaciones claras sobre dónde está la IA ahora mismo. Ideal para entender el panorama completo sin perderse en detalles técnicos.</li><li><strong>LLM Stats</strong> — Página que agrega actualizaciones diarias de todos los modelos de IA importantes. Si quieres estar al día sin suscribirte a diez newsletters distintos, este es tu sitio de referencia.</li></ul><hr class="ndivider"><h2 class="nh1">🗓️ Para la próxima semana</h2><ul class="nlist"><li><strong>GPT-5 completo</strong>: Se espera que OpenAI expanda el acceso a GPT-5 más allá de los usuarios Pro. Si aún no lo has probado, la semana que viene podría ser tu oportunidad.</li><li><strong>Llama 4 de Meta</strong>: La versión open source de los modelos de Meta — potencialmente el sucesor de Llama 3 — podría llegar en cualquier momento. Hay mucha expectativa sobre si mantendrá el liderazgo en código abierto frente a Gemma 4.</li><li><strong>Google I/O 2026</strong>: Google suele hacer anuncios grandes en mayo. Todo apunta a que habrá novedades importantes sobre Gemini y las herramientas para desarrolladores. Vale la pena estar atentos.</li><li><strong>Adobe Firefly + IA de vídeo</strong>: Adobe integró Kling 3.0 Omni esta semana. Las próximas semanas veremos primeros proyectos creativos reales hechos con estas herramientas — buen momento para explorar si te interesa la creación de contenido.</li></ul>
-    </div>
+    <div class="card-body"><h3 class="nh2">📰 NOTICIA DE LA SEMANA</h3>
+<p class="np"><strong>Google I/O 2026: Gemini 3.5 Flash y el agente Gemini Spark</strong></p>
+<p class="np">Google celebró su conferencia I/O los días 19-20 de mayo. El protagonista fue <strong>Gemini 3.5 Flash</strong>, que iguala la inteligencia de los grandes modelos pero a 4× más velocidad. La novedad más llamativa fue <strong>Gemini Spark</strong>, un agente persistente que vive en tu cuenta de Google y automatiza tareas en Gmail, Calendar y Drive de forma continua.</p>
+<hr class="ndivider">
+<h3 class="nh2">🔍 3 NOVEDADES</h3>
+<h4 class="nh3">1. Google Antigravity 2.0 — Código sin saber programar</h4>
+<ul class="nlist nlist-ia"><li><strong>Qué pasó:</strong> Editor donde agentes de IA planifican, escriben y verifican el código por ti. Gratis en vista previa pública.</li><li><strong>Cómo probarlo:</strong> <a href="https://idx.google.com" target="_blank">idx.google.com</a></li></ul>
+<h4 class="nh3">2. GPT-5.5 — OpenAI reconstruye su modelo desde cero</h4>
+<ul class="nlist nlist-ia"><li><strong>Qué pasó:</strong> 60% menos alucinaciones y uso nativo del ordenador.</li><li><strong>Cómo probarlo:</strong> <a href="https://chatgpt.com" target="_blank">chatgpt.com</a></li></ul>
+<h4 class="nh3">3. Qwen 3.7 Max — El modelo abierto que compite con los mejores</h4>
+<ul class="nlist nlist-ia"><li><strong>Qué pasó:</strong> Alibaba lanzó Qwen 3.7 Max, supera a muchos modelos de pago en razonamiento.</li><li><strong>Cómo probarlo:</strong> <a href="https://huggingface.co/Qwen" target="_blank">Hugging Face</a></li></ul>
+<hr class="ndivider">
+<h3 class="nh2">🛠️ HERRAMIENTA DE LA SEMANA</h3>
+<p class="np"><strong>Google Antigravity 2.0</strong> — <a href="https://idx.google.com" target="_blank">idx.google.com</a></p>
+<p class="np">Describes lo que quieres construir y los agentes de IA lo crean, ejecutan y verifican. Completamente gratis.</p>
+<hr class="ndivider">
+<h3 class="nh2">💡 CONCEPTO DE LA SEMANA</h3>
+<p class="np"><strong>Agente de IA (AI Agent)</strong></p>
+<p class="np">Un agente de IA no solo responde preguntas — toma decisiones y ejecuta tareas por sí mismo. Gemini Spark es el ejemplo perfecto: vive en tu Google y actúa de forma autónoma en tus apps.</p>
+<hr class="ndivider">
+<h3 class="nh2">🎯 PARA TI ESTA SEMANA</h3>
+<p class="np"><strong>Finanzas / Auditoría:</strong> Julius AI — análisis financiero conversacional en Excel y Google Sheets → <a href="https://julius.ai" target="_blank">julius.ai</a></p>
+<p class="np"><strong>Betting / Estadísticas:</strong> Predixsport — predicciones de tenis con deep learning → <a href="https://predixsport.com/tennis_predictions" target="_blank">predixsport.com</a></p>
+<hr class="ndivider">
+<h3 class="nh2">📚 3 RECURSOS GRATUITOS</h3>
+<ul class="nlist nlist-ia"><li><a href="https://aistudio.google.com" target="_blank"><strong>Google AI Studio</strong></a> — Gemini 3.5 Flash gratis sin límites</li><li><a href="https://notebooklm.google.com" target="_blank"><strong>NotebookLM</strong></a> — Sube PDFs, hazles preguntas, genera podcasts automáticos</li><li><a href="https://dev.to/alexmercedcoder" target="_blank"><strong>AI Weekly DEV Community</strong></a> — Resumen técnico semanal de herramientas IA gratuitas</li></ul></div>
   </div>
-
   <div class="card">
-    <div class="card-header" style="border-left:4px solid #00d4ff">
-      <h2 class="card-title">IA Weekly — Semana del 18 de abril de 2026</h2>
-      <span class="card-date">2026-04-18</span>
+    <div class="card-header" style="border-top:3px solid #4a9eba">
+      
+      <h2 class="card-title">IA Weekly — Semana del 17 de mayo de 2026</h2>
+      <span class="card-date">Edición anterior</span>
     </div>
-    <div class="card-body">
-      <h3 class="nh2">📰 NOTICIA DE LA SEMANA</h3><p class="np"><strong>Claude Opus 4.7 llega con agentes más inteligentes y la primera barrera de seguridad contra usos prohibidos</strong></p><p class="np">El martes 16 de abril, Anthropic lanzó Claude Opus 4.7, su nuevo modelo insignia. Mejora el rendimiento en tareas de múltiples pasos (flujos agénticos), sube la resolución de visión a 3,75 megapíxeles y es el primer Claude con detección y bloqueo automático de usos de ciberseguridad prohibidos. Para principiantes, lo clave: disponible en claude.ai al mismo precio que antes. Dato llamativo: Claude Mythos, un modelo aún más potente, NO será público por riesgos de seguridad.</p><hr class="ndivider"><h3 class="nh2">🔍 3 NOVEDADES</h3><h4 class="nh3">1. Gemma 4 de Google — IA open source que corre en tu teléfono</h4><p class="np"><strong>Qué pasó:</strong> Google lanzó Gemma 4, familia de modelos multimodales con licencia Apache 2.0 (úsala gratis, sin restricciones). El modelo más pequeño corre en un teléfono Android. El de 26B parámetros funciona en una GPU de consumo normal.</p><p class="np"><strong>Por qué importa para un principiante:</strong> Es el modelo open source más potente disponible para uso local. Sin suscripciones, sin API de pago, sin conexión a internet. El modelo 31B Dense ocupa el puesto #3 en rankings globales de IA de texto.</p><p class="np"><strong>Cómo probarlo:</strong> aistudio.google.com — gratis, sin instalar nada, con tu cuenta de Google</p><p class="np"><strong>Dificultad:</strong> Fácil</p><hr class="ndivider"><h4 class="nh3">2. Grok 4.3 Beta de xAI — Ahora crea PDFs, PowerPoints y analiza vídeo</h4><p class="np"><strong>Qué pasó:</strong> xAI lanzó el 17 de abril Grok 4.3 Beta con capacidad de crear documentos (PDF, PowerPoint, hojas de cálculo) y procesar vídeo como entrada directa.</p><p class="np"><strong>Por qué importa para un principiante:</strong> La IA ya no solo responde preguntas: ahora entrega archivos listos para usar. Es un salto real en productividad para trabajo de oficina. Procesar vídeo directamente simplifica flujos creativos y de análisis.</p><p class="np"><strong>Cómo probarlo:</strong> grok.com — la versión gratuita da acceso a Grok 4.1, suficiente para empezar</p><p class="np"><strong>Dificultad:</strong> Fácil</p><hr class="ndivider"><h4 class="nh3">3. Meta Llama 4 Scout y Maverick — Open source multimodal con 10M tokens de contexto</h4><p class="np"><strong>Qué pasó:</strong> Meta lanzó el 5 de abril Llama 4 Scout y Maverick, los primeros modelos open-weight con arquitectura MoE (Mixture of Experts) capaces de procesar texto, imágenes y vídeo. Scout tiene una ventana de contexto de 10 millones de tokens (~7.500 páginas) y cabe en una sola GPU.</p><p class="np"><strong>Por qué importa para un principiante:</strong> Puedes descargarlo y correrlo completamente gratis en tu propio hardware, o usarlo vía demos en Hugging Face sin instalar nada. Supera a GPT-4o en múltiples benchmarks.</p><p class="np"><strong>Cómo probarlo:</strong> huggingface.co/meta-llama — demos gratuitos disponibles</p><p class="np"><strong>Dificultad:</strong> Medio</p><hr class="ndivider"><h3 class="nh2">🛠️ HERRAMIENTA DE LA SEMANA</h3><p class="np"><strong>Google AI Studio</strong> — aistudio.google.com</p><p class="np"><strong>Qué hace:</strong> Acceso gratuito a Gemma 4 y Gemini directamente en el navegador. Sube PDFs, imágenes o escribe prompts. Analiza documentos, genera código, responde preguntas sobre tus archivos.</p><p class="np"><strong>Tutorial en 3 pasos:</strong></p><ul class="nlist"><li>Ve a aistudio.google.com e inicia sesión con tu cuenta de Google</li><li>Haz clic en "New prompt", despliega el selector de modelos y elige <strong>Gemma 4</strong> o <strong>Gemini 2.0 Flash</strong></li><li>Sube un PDF o imagen (botón de clip) y escribe tu pregunta — el modelo analiza el archivo directamente</li></ul><hr class="ndivider"><h3 class="nh2">💡 CONCEPTO DE LA SEMANA</h3><p class="np"><strong>MoE — Mixture of Experts (Mezcla de Expertos)</strong></p><p class="np">Imagina un hospital: cuando llegas con un problema, no te atienden todos los médicos a la vez, sino que te mandan con el especialista correcto. Un modelo MoE funciona igual: solo activa los "cerebros" internos relevantes para cada pregunta. Resultado: modelos enormes y muy capaces que consumen muchos menos recursos que uno tradicional del mismo tamaño.</p><hr class="ndivider"><h3 class="nh2">🎯 PARA TI ESTA SEMANA</h3><p class="np"><strong>Ingresos con IA:</strong> El freelance de automatización con n8n (gratis, open source) es hoy la entrada más rápida a ingresos con IA. Según encuesta a 230 freelancers en España (Q1 2026): 18 días de media hasta el primer ingreso. Empieza en n8n.io — tienen cursos gratuitos en su sitio.</p><p class="np"><strong>Finanzas / auditoría:</strong> CambioML automatiza la extracción y análisis de documentos financieros (balances, contratos, informes). Alternativa accesible a las herramientas de las Big 4 para equipos pequeños.</p><hr class="ndivider"><h3 class="nh2">📚 3 RECURSOS GRATUITOS</h3><ul class="nlist"><li><strong>Google AI Studio</strong> — Prueba Gemma 4 y Gemini gratis en el navegador, sin instalar nada</li><li><strong>Hugging Face — Llama 4</strong> — Todo sobre los nuevos modelos de Meta con demos gratuitos e interactivos</li><li><strong>n8n Academy</strong> — Aprende automatización con IA desde cero, completamente gratis</li></ul>
-    </div>
-  </div>
-</div>
+    <div class="card-body"><h3 class="nh2">📰 NOTICIA DE LA SEMANA</h3>
+<p class="np"><strong>Google I/O 2026: Gemini se convierte en el asistente central de Android</strong></p>
+<p class="np">El 12 de mayo Google presentó <strong>Gemini Intelligence</strong>, una IA que se mueve libremente entre las apps de tu teléfono y completa tareas complejas de forma autónoma — reservas, emails, agenda, todo sin saltar entre apps.</p>
+<hr class="ndivider">
+<h3 class="nh2">🔍 3 NOVEDADES</h3>
+<h4 class="nh3">1. OpenAI lanza DeployCo con $4.000 millones</h4>
+<ul class="nlist nlist-ia"><li><strong>Qué pasó:</strong> <em>OpenAI Deployment Company</em> envía ingenieros especializados a empresas. Respaldada por McKinsey, Goldman Sachs y Bain Capital.</li></ul>
+<h4 class="nh3">2. GPT-5.5 Instant: ChatGPT mejoró silenciosamente</h4>
+<ul class="nlist nlist-ia"><li><strong>Qué pasó:</strong> 52,5% menos alucinaciones, respuestas 30% más cortas y directas.</li><li><strong>Cómo probarlo:</strong> <a href="https://chat.openai.com" target="_blank">chat.openai.com</a></li></ul>
+<h4 class="nh3">3. Google Omni: generación de video por conversación</h4>
+<ul class="nlist nlist-ia"><li><strong>Qué pasó:</strong> Gemini Omni permite generar, editar y remezclar videos usando solo texto.</li></ul>
+<hr class="ndivider">
+<h3 class="nh2">🛠️ HERRAMIENTA DE LA SEMANA</h3>
+<p class="np"><strong>HubSpot AEO Sensor</strong> — Monitorea cómo te mencionan ChatGPT, Gemini y Perplexity en tu sector. Gratis en <a href="https://hubspot.com" target="_blank">hubspot.com</a></p>
+<hr class="ndivider">
+<h3 class="nh2">💡 CONCEPTO DE LA SEMANA</h3>
+<p class="np"><strong>AEO — Answer Engine Optimization</strong></p>
+<p class="np">Como el SEO te ayudaba a aparecer en Google, el AEO te ayuda a aparecer en las respuestas de los AI. Es el SEO del futuro, empezando exactamente ahora.</p>
+<hr class="ndivider">
+<h3 class="nh2">🎯 PARA TI ESTA SEMANA</h3>
+<p class="np"><strong>Google Sheets:</strong> SheetAI — fórmula =SHEETAI() que procesa datos con IA → <a href="https://sheetai.app" target="_blank">sheetai.app</a></p>
+<p class="np"><strong>Fútbol:</strong> DeepBetting — value bets con 10 años de datos históricos → <a href="https://deepbetting.io" target="_blank">deepbetting.io</a></p>
+<hr class="ndivider">
+<h3 class="nh2">📚 3 RECURSOS GRATUITOS</h3>
+<ul class="nlist nlist-ia"><li><a href="https://io.google/2026" target="_blank"><strong>Google I/O 2026</strong></a> — Todos los anuncios de Gemini y Android 17</li><li><a href="https://www.datacamp.com/blog/free-ai-tools" target="_blank"><strong>39 herramientas IA gratuitas — DataCamp</strong></a> — Lista actualizada</li><li><a href="https://www.marketingprofs.com" target="_blank"><strong>AI Update — MarketingProfs</strong></a> — Resumen semanal curado</li></ul></div>
+  </div></div>
+</main>
 
-<footer>Generated by JARVIS · stefanorihuela-debug.github.io/Jarvis-Newsletter</footer>
+<footer>
+  Generado automáticamente por JARVIS &nbsp;·&nbsp; Datos reales vía Notion &nbsp;·&nbsp; stefanorihuela-debug.github.io/Jarvis-Newsletter
+</footer>
 
 <script>
-  const ACCENTS = { ft: 'ft-active', lp: 'lp-active', ia: 'ia-active' };
   function switchTab(t) {
     ['ft','lp','ia'].forEach(id => {
-      document.getElementById('tab-' + id).className = 'tab';
-      document.getElementById('panel-' + id).classList.remove('active');
+      document.getElementById('tab-'+id).className = 'stab';
+      document.getElementById('panel-'+id).classList.remove('active');
     });
-    document.getElementById('tab-' + t).classList.add(ACCENTS[t]);
-    document.getElementById('panel-' + t).classList.add('active');
+    document.getElementById('tab-'+t).className = 'stab '+t+'-active';
+    document.getElementById('panel-'+t).classList.add('active');
   }
 </script>
 

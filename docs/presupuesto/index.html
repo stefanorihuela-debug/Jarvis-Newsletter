@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Presupuesto — Agosto 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+ *{box-sizing:border-box;margin:0;padding:0}
+ body{background:#0b0f14;color:#e8eef5;font-family:'Source Sans 3',system-ui,sans-serif;padding:28px 18px;max-width:920px;margin:0 auto}
+ .hd{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:#f0e9dc;letter-spacing:.02em}
+ .sub{color:#6a7f96;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;margin:4px 0 22px}
+ .tiles{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:22px}
+ .tile{flex:1;min-width:150px;background:#111823;border:1px solid #1e2a38;border-radius:10px;padding:14px 16px}
+ .tile .lbl{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:#6a7f96;font-family:'JetBrains Mono',monospace}
+ .tile .num{font-family:'JetBrains Mono',monospace;font-size:1.35rem;font-weight:700;margin-top:6px}
+ .tile.hero{border-color:#d4a84b55;background:linear-gradient(180deg,#16202c,#111823)}
+ .tile.hero .num{font-size:1.9rem;color:#f0e9dc}
+ .pos{color:#00e08a}.neg{color:#ff5d73}.gold{color:#d4a84b}.cyan{color:#39c2ff}
+ .sec{background:#111823;border:1px solid #1e2a38;border-radius:10px;padding:16px 18px;margin-bottom:16px}
+ .sec h2{font-family:'JetBrains Mono',monospace;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:#8aa0b6;border-bottom:1px solid #1e2a38;padding-bottom:8px;margin-bottom:12px}
+ .cat-row{display:flex;align-items:center;gap:10px;margin:7px 0;font-size:.85rem}
+ .cat-name{width:38%;color:#cfe0ee}
+ .cat-bar{flex:1;height:9px;background:#0c1219;border-radius:5px;overflow:hidden}
+ .cat-fill{display:block;height:100%;background:linear-gradient(90deg,#d4a84b,#e7c877)}
+ .cat-val{width:96px;text-align:right;font-family:'JetBrains Mono',monospace;color:#e8eef5}
+ .tk{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:.85rem;margin-bottom:8px}
+ .tk-bar{height:12px;background:#0c1219;border-radius:6px;overflow:hidden}
+ .tk-fill{display:block;height:100%;background:linear-gradient(90deg,#39c2ff,#7ad7ff)}
+ .evol{width:100%;height:120px;display:block}
+ .empty{color:#6a7f96;font-style:italic;font-size:.8rem;padding:6px 0}
+ .ft{color:#4a5a6a;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;text-align:center;margin-top:22px}
+ @media(max-width:560px){.tile{min-width:calc(50% - 6px)}.cat-name{width:32%}}
+</style></head><body>
+ <div class="hd">Presupuesto — Agosto 2026</div>
+ <div class="sub">Patrimonio al día · generado por JARVIS · 30/8/2026, 16:25:15</div>
+
+ <div class="tiles">
+   <div class="tile"><div class="lbl">Patrimonio inicial</div><div class="num">1.576,43 €</div></div>
+   <div class="tile"><div class="lbl">Resultado del mes</div><div class="num pos">+32,36 €</div></div>
+   <div class="tile hero"><div class="lbl">Patrimonio al día</div><div class="num gold">1.608,79 €</div></div>
+ </div>
+
+ <div class="tiles">
+   <div class="tile"><div class="lbl">Ingresos</div><div class="num pos">780,39 €</div></div>
+   <div class="tile"><div class="lbl">Gastos</div><div class="num">748,03 €</div></div>
+   <div class="tile"><div class="lbl">Tasa de ahorro</div><div class="num cyan">4.15%</div></div>
+ </div>
+
+ <div class="sec"><h2>Gasto por categoría</h2><div class="cat-row"><span class="cat-name">Alquiler</span><span class="cat-bar"><span class="cat-fill" style="width:100%"></span></span><span class="cat-val">521,00 €</span></div><div class="cat-row"><span class="cat-name">Supermercado (no comida)</span><span class="cat-bar"><span class="cat-fill" style="width:7.89%"></span></span><span class="cat-val">41,13 €</span></div><div class="cat-row"><span class="cat-name">Transporte</span><span class="cat-bar"><span class="cat-fill" style="width:7.05%"></span></span><span class="cat-val">36,72 €</span></div><div class="cat-row"><span class="cat-name">Bares/Salidas</span><span class="cat-bar"><span class="cat-fill" style="width:6.72%"></span></span><span class="cat-val">35,00 €</span></div><div class="cat-row"><span class="cat-name">Suscripción</span><span class="cat-bar"><span class="cat-fill" style="width:5.5%"></span></span><span class="cat-val">28,67 €</span></div><div class="cat-row"><span class="cat-name">Gimnasio</span><span class="cat-bar"><span class="cat-fill" style="width:4.8%"></span></span><span class="cat-val">24,99 €</span></div><div class="cat-row"><span class="cat-name">Teléfono</span><span class="cat-bar"><span class="cat-fill" style="width:3.07%"></span></span><span class="cat-val">15,99 €</span></div><div class="cat-row"><span class="cat-name">Restaurante</span><span class="cat-bar"><span class="cat-fill" style="width:2.88%"></span></span><span class="cat-val">15,00 €</span></div><div class="cat-row"><span class="cat-name">Cine</span><span class="cat-bar"><span class="cat-fill" style="width:1.96%"></span></span><span class="cat-val">10,20 €</span></div><div class="cat-row"><span class="cat-name">Peluquería</span><span class="cat-bar"><span class="cat-fill" style="width:1.92%"></span></span><span class="cat-val">10,00 €</span></div><div class="cat-row"><span class="cat-name">Lavandería</span><span class="cat-bar"><span class="cat-fill" style="width:1.21%"></span></span><span class="cat-val">6,33 €</span></div><div class="cat-row"><span class="cat-name">Comisión bancaria</span><span class="cat-bar"><span class="cat-fill" style="width:0.58%"></span></span><span class="cat-val">3,00 €</span></div></div>
+
+ <div class="sec"><h2>Ticket Resto (cuenta aparte)</h2>
+   <div class="tk"><span>Gastado 148,46 € / 150,00 €</span><span class="cyan">Restante 1,54 €</span></div>
+   <div class="tk-bar"><span class="tk-fill" style="width:98.97%"></span></div>
+ </div>
+
+ <div class="sec"><h2>Evolución del patrimonio</h2><div class="empty">La evolución del patrimonio aparecerá a medida que acumules meses.</div></div>
+
+ <div class="ft">Generado por JARVIS · datos reales vía Notion · no mezclar con el periódico</div>
+</body></html>
